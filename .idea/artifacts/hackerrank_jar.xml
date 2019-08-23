@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="hackerrank:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/hackerrank_jar</output-path>
+    <root id="archive" name="hackerrank_jar.jar">
+      <element id="archive" name="hackerrank.jar">
+        <element id="module-output" name="hackerrank" />
+      </element>
+      <element id="library" level="project" name="sbt: org.scala-lang:scala-library:2.13.0:jar" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/scala/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
