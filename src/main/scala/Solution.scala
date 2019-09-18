@@ -3,15 +3,11 @@
 object Solution {
 
   def queensAttack(n: Int, k: Int, r_q: Int, c_q: Int, obstacles: Array[Array[Int]]): Int = {
-
     val locations = obstacles.map(x => (x.head, x.tail.head)).toList
-
     // prepare board
     var board = Array.ofDim[Char](n, n)
     board(r_q)(c_q) = 'q'
     obstacles.foreach(x => board(x(0))(x(1)) = 'x')
-
-
     0
   }
   def getMoneySpent(keyboards: Array[Int], drives: Array[Int], b: Int): (Int, Int) = {
@@ -28,12 +24,6 @@ object Solution {
       None
     else
       Some(res.minBy(x => B - (x._1 + x._2)))
-
-    /*    res2 match{
-          case Some((x,y)) => x+y
-          case None => -1
-        }
-        */
 
     res2 match{
       case Some(x) => x
@@ -62,7 +52,7 @@ object Solution {
     sb.foldRight("")((p,n)=> n :+ p)
   }
   def findDigits(n: Int): Int = {
-    val count0 = Int2Str(n).toList.map(x => x.asDigit).filter(_>0).filter(x => n % x ==0).size
+    val count0 = Int2Str(n).toList.map(x => x.asDigit).filter(_>0).count(x => n % x ==0)
     count0
   }
   def timeInWords(h: Int, m: Int): String = {
@@ -86,5 +76,4 @@ object Solution {
     }
   }
 
-  def Dummy: String = "hell"
 }
