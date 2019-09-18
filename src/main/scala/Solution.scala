@@ -1,4 +1,4 @@
-
+import  scala.math._
 
 object Solution {
 
@@ -10,6 +10,7 @@ object Solution {
     obstacles.foreach(x => board(x(0))(x(1)) = 'x')
     0
   }
+
   def getMoneySpent(keyboards: Array[Int], drives: Array[Int], b: Int): (Int, Int) = {
 
     val K = keyboards.toList
@@ -30,8 +31,9 @@ object Solution {
       case None => (-1, -1)
     }
   }
+
   def Int2Str(n: Int): String = {
-    val digits = Map(
+    val digit2Char = Map(
       0-> '0',
       1-> '1',
       2-> '2',
@@ -43,18 +45,19 @@ object Solution {
       8-> '8',
       9-> '9'
     )
-    var tmp = n
-    var sb = new StringBuilder()
+    var  tmp  = n
+    val sb = new StringBuilder()
     while(tmp> 0){
-      sb.append( digits(tmp % 10))
+      sb.append( digit2Char(tmp % 10))
       tmp = tmp/10
     }
     sb.foldRight("")((p,n)=> n :+ p)
   }
+
   def findDigits(n: Int): Int = {
-    val count0 = Int2Str(n).toList.map(x => x.asDigit).filter(_>0).count(x => n % x ==0)
-    count0
+    Int2Str(n).toList.map(x => x.asDigit).filter(_>0).count(x => n % x ==0)
   }
+
   def timeInWords(h: Int, m: Int): String = {
     val units = Map(0-> "twelve", 1-> "one", 2->"two", 3-> "three", 4-> "four", 5-> "five",
       6->"six", 7-> "seven", 8-> "eight", 9-> "nine", 10-> "ten",
@@ -74,6 +77,24 @@ object Solution {
       case x if m==30 => s"half past $hours"
       case x if m>30 => if(x==1) s"$minutes minute to $hours" else if(x==15)  s"$minutes to $hours" else s"$minutes minutes to $hours"
     }
+  }
+
+  def encryption(s: String): String = {
+    val noSpaces =s.filter(x=> x!= ' ').mkString("")
+    val limit0 = (math.floor(math.sqrt(noSpaces.length)).toInt, math.ceil(math.sqrt(noSpaces.length)).toInt)
+    val limit = if (limit0._1 * limit0._2 > noSpaces.length) limit0 else (limit0._2, limit0._2)
+      def heads(texts: List[String]): String = texts.foldLeft("")((a, b) => b.headOption match {
+        case Some(h) => a :+ h
+        case None => a
+      })
+      def tails(texts: List[String]): List[String] =  texts.map(x=> x.tail).filter(x=> !x.isEmpty).toList
+    var tmp = noSpaces.grouped(limit._2).toList
+    val sb = new StringBuilder()
+    while(!tmp.isEmpty){
+      sb.append(if(sb.size<1) s"${heads(tmp)}" else s" ${heads(tmp)}")
+      tmp = tails(tmp)
+    }
+    s"${sb.toString()}"
   }
 
 }
